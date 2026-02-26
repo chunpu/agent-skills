@@ -22,6 +22,7 @@ Example (equivalent to the curl you provided):
 """
 
 import argparse
+import base64
 import os
 import sys
 from pathlib import Path
@@ -68,12 +69,16 @@ def parse_args() -> argparse.Namespace:
         help="Output filename (JPEG by default, e.g. 可爱小狗.jpg). If no directory is given, it will be saved under outputs/.",
     )
     parser.add_argument(
-        "--image-url",
+        "--image",
         "-i",
         action="append",
-        dest="image_urls",
-        metavar="URL",
-        help="Reference image URL(s). Can be specified multiple times.",
+        dest="images",
+        metavar="IMAGE",
+        help=(
+            "Reference image(s) as URL or local path. "
+            "URLs are sent directly; local files are encoded as data URLs. "
+            "Can be specified multiple times."
+        ),
     )
     parser.add_argument(
         "--size",
@@ -101,10 +106,51 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def build_image_list(images: Optional[List[str]]) -> List[str]:
+    images: List[str] = []
+
+    if not images:
+        return []
+
+    resolved: List[str] = []
+
+    for item in images:
+        # Treat HTTP(S) as remote URLs directly.
+        if item.startswith("http://") or item.startswith("https://"):
+            resolved.append(item)
+            continue
+
+        # Otherwise, assume local file path → data URL (Base64).
+        path = Path(item)
+        if not path.is_file():
+            print(f"Error: image path does not exist or is not a file: {item}", file=sys.stderr)
+            sys.exit(1)
+
+        ext = path.suffix.lower().lstrip(".")
+        if ext in ("jpg", "jpeg"):
+            fmt = "jpeg"
+        elif ext in ("png", "webp"):
+            fmt = ext
+        else:
+            # Fallback but warn.
+            fmt = ext or "jpeg"
+            print(
+                f"Warning: unrecognised image extension for '{item}', using '{fmt}' in data URL.",
+                file=sys.stderr,
+            )
+
+        with path.open("rb") as f:
+            b64 = base64.b64encode(f.read()).decode("ascii")
+        data_url = f"data:image/{fmt};base64,{b64}"
+        resolved.append(data_url)
+
+    return resolved
+
+
 def build_payload(
     model: str,
     prompt: str,
-    image_urls: Optional[List[str]],
+    images: List[str],
     size: str,
 ) -> dict:
     payload: dict = {
@@ -113,10 +159,10 @@ def build_payload(
         "sequential_image_generation": "disabled",
         "size": size,
         "watermark": False,
-        # We rely on the default URL-based response; do not send output_format.
+        # We rely on the default URL- or data-URL-based response; do not send output_format.
     }
-    if image_urls:
-        payload["image"] = image_urls
+    if images:
+        payload["image"] = images
     return payload
 
 
@@ -159,10 +205,12 @@ def main() -> None:
         )
         sys.exit(1)
 
+    images = build_image_list(args.images)
+
     payload = build_payload(
         model=model_name,
         prompt=args.prompt,
-        image_urls=args.image_urls,
+        images=images,
         size=args.size,
     )
 
@@ -172,8 +220,8 @@ def main() -> None:
     }
 
     print(f"Calling Ark Seedream API with model={model_name}, size={args.size}...")
-    if args.image_urls:
-        print(f"Using {len(args.image_urls)} reference image URL(s).")
+    if images:
+        print(f"Using {len(images)} reference image(s) (URLs and/or local files).")
 
     try:
         resp = requests.post(endpoint, headers=headers, json=payload, timeout=60)

@@ -39,7 +39,7 @@ Generate
 uv run {baseDir}/scripts/generate_image.py --prompt "你的图片描述" --filename "可爱小狗.jpg"
 ```
 
-Image-to-image / reference images (multiple URLs)
+Image-to-image / reference images (multiple images: URL or local file)
 
 ```bash
 uv run {baseDir}/scripts/generate_image.py \
@@ -51,12 +51,25 @@ uv run {baseDir}/scripts/generate_image.py \
   --version 4.5
 ```
 
+Local image references (multiple local files)
+
+```bash
+uv run {baseDir}/scripts/generate_image.py \
+  --prompt "多图融合成一张插画" \
+  --filename "多图融合插画.jpg" \
+  -i "/path/to/参考图1.jpg" \
+  -i "/path/to/参考图2.png" \
+  --size 2K \
+  --version 4.5
+```
+
+Notes
+
+
 API key
 
 - `ARK_API_KEY` env var
 - Or set `skills."generate-image-by-seedream".apiKey` / `skills."generate-image-by-seedream".env.ARK_API_KEY` in `~/.openclaw/openclaw.json`
-
-Notes
 
 - Version options (user-facing):
   - `4.0` → `doubao-seedream-4-0-250828`
