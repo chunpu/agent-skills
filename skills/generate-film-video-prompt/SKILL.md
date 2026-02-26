@@ -1,5 +1,5 @@
 name: film-prompt
-description: 通用影视视频提示词核心速查：五层结构、镜头与运动、灯光与风格、角色与特效、音频与反废话。写短剧/广告/动作/氛围片时的统一 skill。
+description: 通用影视视频提示词核心速查：五层结构、镜头与运动、灯光与风格、角色与特效、音频与反废话。写短剧/广告/动作/氛围片时的统一 skill，本skill只是用于写提示词指导，无法直接生成视频。
 license: MIT
 user-invocable: true
 tags: ["video", "prompt", "film"]
