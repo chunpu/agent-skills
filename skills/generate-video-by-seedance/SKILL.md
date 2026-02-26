@@ -91,6 +91,11 @@ uv run {baseDir}/scripts/generate_video.py \
 - **duration**：视频时长（秒），由模型 / Endpoint 实际支持的区间决定
 - **model**（可选，高级）：直接指定 Ark Endpoint / 模型 ID，覆盖默认绑定
 
+轮询脚本 `get_video_task_status.py` 额外参数：
+
+- **interval**：轮询间隔（秒），默认 `10`，可根据任务耗时与频率需求自行调整
+- **timeout**：最大等待时间（秒），默认 `600`，超过后脚本会报错退出
+
 #### 结果与文件输出
 
 - Ark 视频生成通常是**异步任务**：
@@ -119,7 +124,8 @@ uv run {baseDir}/scripts/generate_video.py \
 # 2) 拿到上一步输出的 TASK_ID 后，轮询直到生成完成并下载视频
 uv run {baseDir}/scripts/get_video_task_status.py \
   cgt-20260226184301-4h8v6 \
-  --filename "示例视频.mp4"
+  --filename "示例视频.mp4" \
+  --interval 5
 ```
 
 轮询脚本会：
