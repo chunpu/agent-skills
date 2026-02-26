@@ -36,7 +36,7 @@ Default size: `2K`.
 Generate
 
 ```bash
-uv run {baseDir}/scripts/generate_image.py --prompt "你的图片描述" --filename "output.jpg"
+uv run {baseDir}/scripts/generate_image.py --prompt "你的图片描述" --filename "可爱小狗.jpg"
 ```
 
 Image-to-image / reference images (multiple URLs)
@@ -44,7 +44,7 @@ Image-to-image / reference images (multiple URLs)
 ```bash
 uv run {baseDir}/scripts/generate_image.py \
   --prompt "将图1的服装换为图2的服装" \
-  --filename "output.jpg" \
+  --filename "换装女孩.jpg" \
   -i "https://ark-project.tos-cn-beijing.volces.com/doc_image/seedream4_imagesToimage_1.png" \
   -i "https://ark-project.tos-cn-beijing.volces.com/doc_image/seedream4_5_imagesToimage_2.png" \
   --size 2K \
@@ -67,13 +67,19 @@ Notes
   - `4.0`: `1K`, `2K`, `4K`
   - `4.5`: `2K`, `4K`
   - `5.0`: `2K`, `3K`
-- Use timestamps in filenames: `yyyy-mm-dd-hh-mm-ss-name.png`.
+- Use timestamps in filenames: `yyyy-mm-dd-hh-mm-ss-name.jpg`.
 - The script prints a `MEDIA:` line for OpenClaw to auto-attach on supported chat providers.
-- The script downloads the first image URL returned by Ark and saves it locally as PNG.
+- The script downloads the first image URL returned by Ark and saves it locally as JPEG.
+
+Filename recommendation (for agents / 调用方):
+
+- 不要在文件名里包含 "seedream" 之类的实现细节。
+- 文件名语言应与用户 Prompt 语言保持一致，例如中文 Prompt 就用简短中文文件名（如 `可爱小狗.jpg`）。
+- 名字要有语义但尽量简短，避免过长句子。
 
 Keyword hints (for discovery / 命中搜索):
 
 - "doubao", "豆包", "即梦", "Seedream", "dreamina"
 - "ByteDance image model", "字节跳动生图模型"
-- "文生图", "图生图", "图片生成", "图像生成", "换装", "图片编辑"
+- "文生图", "图生图", "参考图", "图片生成", "图像生成", "换装", "图片编辑"
 

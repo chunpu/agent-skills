@@ -65,7 +65,7 @@ def parse_args() -> argparse.Namespace:
         "--filename",
         "-f",
         required=True,
-        help="Output filename (JPEG by default, e.g. 2025-02-26-seedream.jpg)",
+        help="Output filename (JPEG by default, e.g. 可爱小狗.jpg). If no directory is given, it will be saved under outputs/.",
     )
     parser.add_argument(
         "--image-url",
@@ -236,8 +236,12 @@ def main() -> None:
         )
         sys.exit(1)
 
-    # Ark 默认返回 JPEG，如果用户没带后缀，就默认补上 .jpg
+    # Ark 默认返回 JPEG。
+    # 1) 如果用户没带后缀，就默认补上 .jpg
+    # 2) 如果用户没指定目录（纯文件名），默认写入 outputs/ 目录
     output_path = Path(args.filename)
+    if not output_path.parent or str(output_path.parent) == ".":
+        output_path = Path("outputs") / output_path.name
     if output_path.suffix == "":
         output_path = output_path.with_suffix(".jpg")
     output_path.parent.mkdir(parents=True, exist_ok=True)
