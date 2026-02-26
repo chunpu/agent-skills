@@ -28,6 +28,22 @@ from pathlib import Path
 from typing import List, Optional
 
 
+VERSION_TO_MODEL = {
+    "4.0": "doubao-seedream-4-0-250828",
+    "4.5": "doubao-seedream-4-5-251128",
+    "5.0": "doubao-seedream-5-0-260128",
+    # Lite variants (for advanced users)
+    "4.5-lite": "doubao-seedream-4-5-251128",  # if a dedicated lite ID appears later, update here
+    "5.0-lite": "doubao-seedream-5-0-lite-260128",
+}
+
+ALLOWED_SIZES_BY_VERSION = {
+    "4.0": {"1K", "2K", "4K"},
+    "4.5": {"2K", "4K"},
+    "5.0": {"2K", "3K"},
+}
+
+
 def get_api_key(provided_key: Optional[str]) -> Optional[str]:
     """Get API key from argument first, then environment."""
     if provided_key:
@@ -71,9 +87,16 @@ def parse_args() -> argparse.Namespace:
         help="Ark API key (overrides ARK_API_KEY env var).",
     )
     parser.add_argument(
+        "--version",
+        "-v",
+        choices=["4.0", "4.5", "5.0"],
+        default="4.5",
+        help="Seedream version: 4.0, 4.5 (default), or 5.0. Internally mapped to Ark model IDs.",
+    )
+    parser.add_argument(
         "--model",
-        default="doubao-seedream-4-5-251128",
-        help="Seedream model name. Default: doubao-seedream-4-5-251128",
+        help="Advanced: override full Ark model name (e.g. doubao-seedream-4-5-251128). "
+        "If provided, this takes precedence over --version.",
     )
     return parser.parse_args()
 
@@ -113,8 +136,31 @@ def main() -> None:
 
     endpoint = "https://ark.cn-beijing.volces.com/api/v3/images/generations"
 
+    # Resolve model: explicit --model wins; otherwise map from --version.
+    if args.model:
+        model_name = args.model
+    else:
+        model_name = VERSION_TO_MODEL.get(args.version)
+        if not model_name:
+            print(
+                f"Error: Unsupported Seedream version '{args.version}'. "
+                f"Supported versions: {', '.join(sorted(VERSION_TO_MODEL.keys()))}",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+
+    # Validate size against version constraints (only for known 4.0/4.5/5.0).
+    allowed_sizes = ALLOWED_SIZES_BY_VERSION.get(args.version)
+    if allowed_sizes is not None and args.size not in allowed_sizes:
+        print(
+            f"Error: size '{args.size}' is not supported for Seedream {args.version}. "
+            f"Allowed sizes for {args.version}: {', '.join(sorted(allowed_sizes))}.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
     payload = build_payload(
-        model=args.model,
+        model=model_name,
         prompt=args.prompt,
         image_urls=args.image_urls,
         size=args.size,
@@ -125,7 +171,7 @@ def main() -> None:
         "Authorization": f"Bearer {api_key}",
     }
 
-    print(f"Calling Ark Seedream API with model={args.model}, size={args.size}...")
+    print(f"Calling Ark Seedream API with model={model_name}, size={args.size}...")
     if args.image_urls:
         print(f"Using {len(args.image_urls)} reference image URL(s).")
 
