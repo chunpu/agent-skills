@@ -1,6 +1,6 @@
 ---
 name: generate-image-by-seedream
-description: Generate or edit images via Doubao Seedream 5.0 on Volcengine Ark.
+description: Generate or edit images via Doubao / 豆包 Seedream (即梦 / Dreamina) ByteDance / 字节跳动 image models on Volcengine Ark.
 homepage: https://www.volcengine.com/product/ark
 metadata:
   {
@@ -23,9 +23,12 @@ metadata:
   }
 ---
 
-# Generate Image by Seedream (Doubao Seedream)
+# Generate Image by Doubao / 豆包 Seedream (即梦 / Dreamina)
 
-Use the bundled script to generate or edit images via Volcengine Ark Seedream.
+Use the bundled script to generate or edit images via **ByteDance / 字节跳动** image generation models:
+
+- **Doubao / 豆包 Seedream (即梦 / Dreamina)** 系列生图模型
+- 支持文生图、图生图、多图参考编辑
 
 Default version: `4.5` → mapped to `doubao-seedream-4-5-251128`.
 
@@ -66,4 +69,10 @@ Notes
 - Use timestamps in filenames: `yyyy-mm-dd-hh-mm-ss-name.png`.
 - The script prints a `MEDIA:` line for OpenClaw to auto-attach on supported chat providers.
 - The script downloads the first image URL returned by Ark and saves it locally as PNG.
+
+Keyword hints (for discovery / 命中搜索):
+
+- "doubao", "豆包", "即梦", "Seedream", "dreamina"
+- "ByteDance image model", "字节跳动生图模型"
+- "文生图", "图生图", "图片生成", "图像生成", "换装", "图片编辑"
 
