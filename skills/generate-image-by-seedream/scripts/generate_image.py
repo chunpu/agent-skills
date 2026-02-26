@@ -65,7 +65,7 @@ def parse_args() -> argparse.Namespace:
         "--filename",
         "-f",
         required=True,
-        help="Output filename (e.g. 2025-02-26-seedream.png)",
+        help="Output filename (JPEG by default, e.g. 2025-02-26-seedream.jpg)",
     )
     parser.add_argument(
         "--image-url",
@@ -236,7 +236,10 @@ def main() -> None:
         )
         sys.exit(1)
 
+    # Ark 默认返回 JPEG，如果用户没带后缀，就默认补上 .jpg
     output_path = Path(args.filename)
+    if output_path.suffix == "":
+        output_path = output_path.with_suffix(".jpg")
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
     try:

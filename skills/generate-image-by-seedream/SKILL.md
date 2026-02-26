@@ -31,11 +31,12 @@ Use the bundled script to generate or edit images via **ByteDance / 字节跳动
 - 支持文生图、图生图、多图参考编辑
 
 Default version: `4.5` → mapped to `doubao-seedream-4-5-251128`.
+Default size: `2K`.
 
 Generate
 
 ```bash
-uv run {baseDir}/scripts/generate_image.py --prompt "你的图片描述" --filename "output.png" --size 2K --version 4.5
+uv run {baseDir}/scripts/generate_image.py --prompt "你的图片描述" --filename "output.jpg"
 ```
 
 Image-to-image / reference images (multiple URLs)
@@ -43,7 +44,7 @@ Image-to-image / reference images (multiple URLs)
 ```bash
 uv run {baseDir}/scripts/generate_image.py \
   --prompt "将图1的服装换为图2的服装" \
-  --filename "output.png" \
+  --filename "output.jpg" \
   -i "https://ark-project.tos-cn-beijing.volces.com/doc_image/seedream4_imagesToimage_1.png" \
   -i "https://ark-project.tos-cn-beijing.volces.com/doc_image/seedream4_5_imagesToimage_2.png" \
   --size 2K \
