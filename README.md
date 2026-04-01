@@ -14,6 +14,14 @@ Add these skills to your AI agent using the following command:
 npx skills add chunpu/agent-skills -y -g
 ```
 
+## Update
+
+Update the skills using:
+
+```bash
+npx skills update chunpu/agent-skills -g -y
+```
+
 ## Available Skills
 
 | Skill | Description |
