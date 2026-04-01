@@ -37,9 +37,9 @@ dreamina user_credit
 curl -fsSL https://jimeng.jianying.com/cli | bash
 ```
 
-如果未登录，按照提示完成登录流程
+如果未登录，需要执行 `dreamina login` 登录，这个命令会拉起本地浏览器获取登录凭证。
 
-查看所有功能：
+### 2. 查看所有功能
 
 ```bash
 dreamina --help
