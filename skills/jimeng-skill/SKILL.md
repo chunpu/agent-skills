@@ -45,16 +45,6 @@ curl -fsSL https://jimeng.jianying.com/cli | bash
 dreamina --help
 ```
 
-## 从文本提示词文件生成
-
-所有生图和生视频命令都支持从本地文本文件读取提示词：
-
-```bash
-dreamina text2image --prompt "$(cat prompt.txt)" --ratio 16:9
-dreamina text2video --prompt "$(cat prompt.txt)"
-dreamina multimodal2video --prompt "$(cat prompt.txt)"
-```
-
 ## 生图
 
 生图相对较快，直接生成：
@@ -122,6 +112,36 @@ curl -o "output.mp4" "<download_url>"
 - 计算出**每分钟队列平均前进多少位**
 - 用当前剩余排队位置除以前进速度，得到**预估排队结束还需要多少分钟**
 - 将这两个信息告诉用户即可
+
+## 万能参考
+
+生图和生视频支持多参考输入
+
+按照生成参数资源传入的顺序来引用参考图像：引用的方式是在提示词写 图1，图2，音频1，视频1 这种，例如
+
+```txt
+提取图1、图2、图3的相机,把背景换成白色,相机在一个白色桌子上,然后以相机为主体360°缓慢旋转,晰展示相机的正面侧面以及背面。
+```
+
+## 从本地文本提示词文件生成
+
+所有生图和生视频命令都支持从本地文本文件读取提示词：ina multimodal2video --prompt "$(cat prompt.txt)"
+```
+
+## 从本地文本提示词文件生成
+
+所有生图和生视频命令都支持从本地文本文件读取提示词：
+
+```bash
+dreamina text2image --prompt "$(cat prompt.txt)" --ratio 16:9
+dreamina text2video --prompt "$(cat prompt.txt)"
+```
+
+## 本地提示词 + 多参考生视频
+
+```bash
+dreamina multimodal2video --image ./角色A.jpg --image ./角色B.jpg --image ./场景1.jpg --prompt "角色A参考图1，角色B参考图2，场景1参考图3。 $(cat prompt.txt)"
+```
 
 ## 常用子命令（优先使用这几个）
 
