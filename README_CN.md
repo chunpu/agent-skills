@@ -14,10 +14,10 @@ npx skills add chunpu/agent-skills -y -g
 
 ## 更新
 
-使用以下命令更新技能：
+使用以下命令更新技能，只需要再添加一次即可：
 
 ```bash
-npx skills update chunpu/agent-skills -g -y
+npx skills add chunpu/agent-skills -g -y
 ```
 
 ## 可用技能

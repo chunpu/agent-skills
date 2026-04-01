@@ -16,10 +16,10 @@ npx skills add chunpu/agent-skills -y -g
 
 ## Update
 
-Update the skills using:
+Update the skills just add again
 
 ```bash
-npx skills update chunpu/agent-skills -g -y
+npx skills add chunpu/agent-skills -g -y
 ```
 
 ## Available Skills
