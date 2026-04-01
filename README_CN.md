@@ -17,7 +17,7 @@ npx skills add chunpu/agent-skills -y -g
 | 技能 | 描述 |
 |------|------|
 | 🎨 [character-design](./skills/character-design/SKILL.md) | 生成 16:9 横版三视图角色设计图 |
-| 🎬 [director-directing](./skills/director-directing/SKILL.md) | 将小说/剧本转换为包含镜头、灯光、声音的文字分镜 |
+| 🎬 [text-storyboard](./skills/text-storyboard/SKILL.md) | 将小说/剧本转换为包含镜头、灯光、声音的文字分镜 |
 | 📝 [generate-film-video-prompt](./skills/generate-film-video-prompt/SKILL.md) | 编写包含结构、镜头、运动、灯光、声音的可执行电影提示词 |
 | 🖼️ [generate-image-by-seedream](./skills/generate-image-by-seedream/SKILL.md) | 通过火山引擎 Ark 豆包 Seedream 生成/编辑图像 |
 | 🎥 [generate-video-by-seedance](./skills/generate-video-by-seedance/SKILL.md) | 通过火山引擎 Ark 豆包 Seedance 生成/编辑视频 |

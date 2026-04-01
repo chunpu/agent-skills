@@ -19,7 +19,7 @@ npx skills add chunpu/agent-skills -y -g
 | Skill | Description |
 |-------|-------------|
 | 🎨 [character-design](./skills/character-design/SKILL.md) | Generate character design sheets in 16:9 horizontal three-view mode |
-| 🎬 [director-directing](./skills/director-directing/SKILL.md) | Transform novels/scripts into visual storyboards with camera, lighting, and sound |
+| 🎬 [text-storyboard](./skills/text-storyboard/SKILL.md) | Transform novels/scripts into visual storyboards with camera, lighting, and sound |
 | 📝 [generate-film-video-prompt](./skills/generate-film-video-prompt/SKILL.md) | Write executable film prompts with structure, camera, motion, lighting, and sound |
 | 🖼️ [generate-image-by-seedream](./skills/generate-image-by-seedream/SKILL.md) | Generate/edit images via Doubao Seedream on Volcengine Ark |
 | 🎥 [generate-video-by-seedance](./skills/generate-video-by-seedance/SKILL.md) | Generate/edit videos via Doubao Seedance on Volcengine Ark |

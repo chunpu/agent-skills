@@ -1,5 +1,5 @@
 ---
-name: "director-directing"
+name: "text-storyboard"
 description: "文字分镜：从剧本到画面的翻译层，将抽象文学作品转化为具象视听描述。当用户需要将小说或剧本转换为文字分镜时调用。"
 ---
 
