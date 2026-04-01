@@ -142,3 +142,7 @@ curl -o "output.mp4" "<download_url>"
 ```bash
 curl -o "semantic-filename.mp4" "<download_url>"
 ```
+
+## 错误处理
+
+如果遇到生成错误，你要把具体错误信息告诉用户，引导用户解决错误。
