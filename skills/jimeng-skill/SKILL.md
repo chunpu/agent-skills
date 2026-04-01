@@ -45,6 +45,16 @@ curl -fsSL https://jimeng.jianying.com/cli | bash
 dreamina --help
 ```
 
+## 从文本提示词文件生成
+
+所有生图和生视频命令都支持从本地文本文件读取提示词：
+
+```bash
+dreamina text2image --prompt "$(cat prompt.txt)" --ratio 16:9
+dreamina text2video --prompt "$(cat prompt.txt)"
+dreamina multimodal2video --prompt "$(cat prompt.txt)"
+```
+
 ## 生图
 
 生图相对较快，直接生成：
