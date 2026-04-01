@@ -139,6 +139,8 @@ dreamina text2video --prompt "$(cat prompt.txt)"
 
 ## 本地提示词 + 多参考生视频
 
+命令行举例：
+
 ```bash
 dreamina multimodal2video --image ./角色A.jpg --image ./角色B.jpg --image ./场景1.jpg --prompt "角色A参考图1，角色B参考图2，场景1参考图3。 $(cat prompt.txt)"
 ```
